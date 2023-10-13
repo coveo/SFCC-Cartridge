@@ -1,0 +1,9 @@
+node_modules/
+**/static/**
+**/bin/**
+**/coverage/**
+**/doc/**
+lib/**
+./sitegenesis-master
+cartridges/int_coveo_sg
+webpack.config.js

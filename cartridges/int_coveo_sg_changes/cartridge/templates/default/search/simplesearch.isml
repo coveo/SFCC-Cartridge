@@ -1,0 +1,13 @@
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<iscomment>Custom Start: Coveo Integration</iscomment>
+<isset name="coveoEnabled" value="${'coveoEnabled' in dw.system.Site.current.preferences.custom ? dw.system.Site.current.preferences.custom.coveoEnabled :false}" scope="page" />
+<isset name="coveoSearchEnabled" value="${'coveoSearchEnabled' in dw.system.Site.current.preferences.custom ? dw.system.Site.current.preferences.custom.coveoSearchEnabled : false}" scope="page" />
+<form role="search" action="${URLUtils.url(coveoEnabled && coveoSearchEnabled ? 'Coveo-Show' : 'Search-Show')}" method="get" name="simpleSearch">
+	<fieldset>
+		<label class="visually-hidden" for="q">${Resource.msg('global.searchcatalog', 'locale', null)}</label>
+		<input type="text" id="q" name="q" value="" placeholder="${Resource.msg('simplesearch.searchtext', 'search', null)}" />
+		<input type="hidden" name="lang" value="${pdict.CurrentRequest.locale}"/>
+		<button type="submit"><span class="visually-hidden">${Resource.msg('global.search', 'locale', null)}</span><i class="fa fa-search"></i></button>
+	</fieldset>
+</form>
+<iscomment>Custom End: Coveo Integration</iscomment>

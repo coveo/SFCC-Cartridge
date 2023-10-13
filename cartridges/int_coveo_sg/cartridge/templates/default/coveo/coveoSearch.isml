@@ -1,0 +1,159 @@
+<isdecorate template="checkout/pt_checkout" />
+<script src="${URLUtils.staticURL('/js/product-tile.js')}"></script>
+<style>
+    .primary-content {
+        width: 100% !important;
+    }
+
+    .primary-content .container {
+        width: 100% !important;
+    }
+
+    .primary-content .container .coveo-product-page {
+        display: flex;
+        width: 100% !important;
+    }
+
+    .primary-content .container .coveo-product-page .coveo-search-results {
+        width: 100% !important;
+    }
+
+    .primary-content .container .coveo-product-page .coveo-search-results .image-icon {
+        grid-template-columns: auto auto auto;
+    }
+</style>
+<div class="container coveosearch" data-api-key="${dw.system.Site.current.preferences.custom.coveoSearchApiKey}"
+    data-organization-id="${dw.system.Site.current.preferences.custom.coveoOrganizationId}"
+    data-search-query='${pdict.coveoSearchQuery}'>
+    <atomic-search-interface id="search" search-hub="${dw.system.Site.current.preferences.custom.coveoSearchHub}"
+        class="coveo-search-page"
+        fields-to-include="${JSON.stringify(dw.system.Site.current.preferences.custom.coveoSearchResponseFields)}">
+        <div class="row coveo-product-page">
+            <div class="col-md-3">
+                <atomic-facet-manager>
+                    <atomic-category-facet field="ec_category" label="Category" facet-id="category-facet"
+                        delimiting-character="|"></atomic-category-facet>
+                    <atomic-facet field="ec_colors" label="Color" facet-id="color-facet"></atomic-facet>
+                    <atomic-numeric-facet field='ec_price' label='Price'></atomic-numeric-facet>
+                    <atomic-facet field='year' label='Year'></atomic-facet>
+                    <atomic-facet field="ec_brand" label="Brand" facet-id="brand-facet"></atomic-facet>
+                </atomic-facet-manager>
+            </div>
+            <div class="col-md-9 coveo-search-results">
+                <atomic-result-list display="grid">
+                    <atomic-result-template>
+                        <template>
+                            <style>
+                                .coveo-custom-image {
+                                    position: relative;
+                                    overflow: auto;
+                                }
+
+                                .coveo-image {
+                                    width: 212px;
+                                    height: 212px;
+                                }
+
+                                .quickview .fa {
+                                    font: normal normal normal 16px/1 FontAwesome;
+                                    position: absolute;
+                                    right: 22px;
+                                    bottom: 47px;
+                                    display: inline-block;
+                                }
+
+                                .quickview .fa-circle {
+                                    color: rgba(255, 255, 255, 0.7);
+                                    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                                    font-size: 3em;
+                                    position: absolute;
+                                    right: 10px;
+                                    text-align: center;
+                                    bottom: 35px;
+                                }
+
+                                .quickview .fa-expand {
+                                    color: rgba(0, 0, 0, 0.7);
+                                    line-height: inherit;
+                                }
+
+                                .quickview .fa-expand:before {
+                                    content: '\f065';
+                                }
+
+                                .quickview .fa-stack {
+                                    line-height: 2em;
+                                    vertical-align: middle;
+                                }
+
+                                .quickview .fa-circle:before {
+                                    content: "\F111";
+                                }
+
+                                .coveo-price {
+                                    font-weight: bold;
+                                    font-size: 1.3em;
+                                }
+
+                                .d-none {
+                                    display: none
+                                }
+
+                                .swatch {
+                                    margin: 10px 0px;
+                                    display: inline-block;
+                                    margin-right: 1px;
+                                    position: relative;
+                                    z-index: 1;
+                                }
+
+                                .coveo-swatch .swatch a {
+                                    display: inline-block;
+                                }
+
+                                .swatch a img {
+                                    border: 1px solid #fff;
+                                    height: 20px;
+                                    width: 20px;
+                                    padding: 1px;
+                                }
+
+                                .coveo-swatch .hydrated {
+                                    display: block;
+                                    font-size: 16px;
+                                    font-weight: 400;
+                                    font-family: -apple-system, BlinkMacSystem, Arial;
+                                    color: #00aae8;
+                                }
+
+                                .coveo-swatch:not(:has(.swatch)) .hydrated {
+                                    margin-top: 39px;
+                                }
+                            </style>
+                            <div class="coveo-custom-image">
+                                <atomic-result-image class="coveo-image" field="ec_images" image-size="icon">
+                                </atomic-result-image>
+                                <span class="quickview fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                                    <i class="fa fa-expand fa-stack-1x"></i>
+                                </span>
+                                <atomic-result-text class="d-none" field="ec_sgquickview"></atomic-result-text>
+                            </div>
+                            <div class="coveo-swatch">
+                                <atomic-result-link></atomic-result-link>
+                            </div>
+                            <atomic-result-number class="coveo-price" field="ec_price">${pdict.currencySymbol}
+                            </atomic-result-number>
+                            <atomic-result-rating field="ec_rating"></atomic-result-rating>
+                        </template>
+                    </atomic-result-template>
+                </atomic-result-list>
+                <atomic-load-more-results class="coveo-load-more"></atomic-load-more-results>
+            </div>
+        </div>
+        <atomic-query-error></atomic-query-error>
+        <atomic-no-results></atomic-no-results>
+    </atomic-search-interface>
+
+</div>
+</isdecorate>

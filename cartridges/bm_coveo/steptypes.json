@@ -1,0 +1,107 @@
+{
+    "step-types": {
+      "chunk-script-module-step": [
+        {
+          "@type-id":"custom.coveo.coveoProductExportFull",
+          "@supports-organization-context": false,
+          "description": "Exports all products to coveo via stream APIs",
+          "module": "bm_coveo/cartridge/scripts/jobs/exportProducts.js",
+          "before-step-function":"beforeStep",
+          "read-function":"read",
+          "process-function":"process",
+          "write-function":"write",
+          "after-step-function":"afterStep",
+          "after-chunk-function":"afterChunk",
+          "chunk-size": 1000,
+          "parameters": {
+            "parameter": [{
+                          "@name": "srcFolder",
+                          "@type": "string",
+                          "@required": "true",
+                          "@trim": "true",
+                          "description": "Source folder path (in IMPEX) to export the file",
+                          "default-value": "/src/coveo/feeds/products/"
+                      },
+                      {
+                        "@name": "archivePath",
+                        "@type": "string",
+                        "@required": "true",
+                        "@trim": "true",
+                        "description": "Local path to archive file after successfully upload to server"
+                      },
+                      {
+                        "@name": "deleteFile",
+                        "description": "Delete file after sucessfull upload to coveo",
+                        "@type": "boolean",
+                        "@required": "false",
+                        "@trim": "true",
+                        "default-value": true
+                      }
+            ]
+          },
+          "status-codes": {
+            "status": [
+              {
+                "@code": "ERROR",
+                "description": "Used when an error occurred."
+              },
+              {
+                "@code": "OK",
+                "description": "Used when everything went well."
+              }
+            ]
+          }
+        },
+        {
+          "@type-id":"custom.coveo.coveoProductExportDelta",
+          "@supports-organization-context": false,
+          "description": "Exports delta products to coveo via stream api",
+          "module": "bm_coveo/cartridge/scripts/jobs/exportProductsDelta.js",
+          "before-step-function":"beforeStep",
+          "read-function":"read",
+          "process-function":"process",
+          "write-function":"write",
+          "after-step-function":"afterStep",
+          "parameters": {
+            "parameter": [{
+                          "@name": "srcFolder",
+                          "@type": "string",
+                          "@required": "true",
+                          "@trim": "true",
+                          "description": "Source folder path (in IMPEX) to export the file",
+                          "default-value": "/src/coveo/feeds/products/"
+                      },
+                      {
+                        "@name": "archivePath",
+                        "@type": "string",
+                        "@required": "true",
+                        "@trim": "true",
+                        "description": "Local path to archive file after successfully upload to server"
+                      },
+                      {
+                        "@name": "deleteFile",
+                        "description": "Delete file after sucessfull upload to coveo",
+                        "@type": "boolean",
+                        "@required": "false",
+                        "@trim": "true",
+                        "default-value": true
+                      }
+            ]
+          },
+          "status-codes": {
+            "status": [
+              {
+                "@code": "ERROR",
+                "description": "Used when an error occurred."
+              },
+              {
+                "@code": "OK",
+                "description": "Used when everything went well."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+  
